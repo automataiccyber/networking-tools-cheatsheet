@@ -1,296 +1,341 @@
 # Networking Tools Cheat Sheet
 
-A detailed reference for common networking command-line tools used for diagnostics, troubleshooting, and information gathering.
+A consistent and detailed reference for essential networking tools used for diagnostics, troubleshooting, and reconnaissance.
 
 ---
 
-## 1. ping — Test connectivity and measure latency
+## 1. `ping` — Test Connectivity & Measure Latency
 
-**Purpose:** Send ICMP echo requests to check if a host is reachable and measure round-trip time.
+**✅ Purpose:**  
+Sends ICMP echo requests to check if a host is reachable and measures round-trip time.
 
-### Common options:
-- `-c <count>` — Number of echo requests to send.
-- `-i <interval>` — Interval between packets (seconds).
-- `-s <size>` — Payload size in bytes.
-- `-t <ttl>` — Set Time To Live.
-
-### Example:
+**🛠️ Basic Syntax:**
 ```bash
-ping -c 4 google.com
+ping [options] <host>
 ````
 
-### Output:
+**⚙️ Useful Options:**
 
-<img width="742" height="172" alt="image" src="https://github.com/user-attachments/assets/1578216e-b42b-4e1a-a761-953f6282d527" />
+* `-c <count>` – Number of echo requests to send
+* `-i <interval>` – Interval between requests
+* `-s <size>` – Packet payload size
+* `-t <ttl>` – Set Time To Live
+
+**🧪 Example:**
+
+```bash
+ping -c 4 google.com
+```
+
+**🖥️ Output:**
+
+![ping output](https://github.com/user-attachments/assets/1578216e-b42b-4e1a-a761-953f6282d527)
 
 ---
 
-## 2. traceroute — Trace network path to a host
+## 2. `traceroute` — Trace Path to Host
 
-**Purpose:** Displays the route packets take to reach a destination host.
+**✅ Purpose:**
+Shows the route packets take to reach a host.
 
-### Common options:
+**🛠️ Basic Syntax:**
 
-* `-m <max_ttl>` — Max hops to trace (default 30).
-* `-n` — Show numeric IPs only (no hostname resolution).
-* `-w <timeout>` — Timeout per probe in seconds.
+```bash
+traceroute [options] <host>
+```
 
-### Example:
+**⚙️ Useful Options:**
+
+* `-n` – Do not resolve hostnames
+* `-m <max_ttl>` – Max hops (TTL)
+* `-w <timeout>` – Timeout per probe
+
+**🧪 Example:**
 
 ```bash
 traceroute -n google.com
 ```
 
-### Output:
+**🖥️ Output:**
 
-<img width="677" height="215" alt="image" src="https://github.com/user-attachments/assets/c7a4831d-32ee-4181-a157-a63198f69572" />
+![traceroute output](https://github.com/user-attachments/assets/c7a4831d-32ee-4181-a157-a63198f69572)
 
 ---
 
-## 3. whois — Domain registration information
+## 3. `whois` — Domain Registration Info
 
-**Purpose:** Retrieves domain ownership and registration details.
+**✅ Purpose:**
+Retrieves ownership and registration details of domains.
 
-### Usage:
+**🛠️ Basic Syntax:**
+
+```bash
+whois <domain>
+```
+
+**⚙️ Useful Info Returned:**
+
+* Registrar info
+* Registration/Expiration dates
+* Name servers
+* Status (e.g., clientTransferProhibited)
+
+**🧪 Example:**
 
 ```bash
 whois google.com
 ```
 
-### Output:
+**🖥️ Output:**
 
-<img width="733" height="388" alt="image" src="https://github.com/user-attachments/assets/a3cf1d19-52b2-4d2b-a41d-af23c10911f5" />
-
-### Key fields:
-
-* Registrar information
-* Creation & expiration dates
-* Registrant organization
-* Name servers
-* Domain status codes
+![whois output](https://github.com/user-attachments/assets/a3cf1d19-52b2-4d2b-a41d-af23c10911f5)
 
 ---
 
-## 4. nmap — Port scanning and host discovery
+## 4. `nmap` — Port Scan & Host Discovery
 
-**Purpose:** Scan hosts for open ports and services.
+**✅ Purpose:**
+Scans hosts for open ports, OS details, and services.
 
-### Common options:
+**🛠️ Basic Syntax:**
 
-* `-sS` — TCP SYN scan (stealth).
-* `-sU` — UDP scan.
-* `-p <port(s)>` — Specify port or range.
-* `-O` — OS detection.
-* `-A` — Aggressive scan (includes version & script scanning).
+```bash
+nmap [options] <host>
+```
 
-### Example:
+**⚙️ Useful Options:**
+
+* `-sS` – Stealth SYN scan
+* `-p <ports>` – Specific ports
+* `-O` – OS detection
+* `-A` – Aggressive scan (OS, version, script)
+
+**🧪 Example:**
 
 ```bash
 sudo nmap -sS -p 80,443 google.com
 ```
 
-### Output:
+**🖥️ Output:**
 
-<img width="581" height="213" alt="image" src="https://github.com/user-attachments/assets/4bccc61c-6e10-4168-8f94-96eaa69dc9a6" />
+![nmap output](https://github.com/user-attachments/assets/4bccc61c-6e10-4168-8f94-96eaa69dc9a6)
 
 ---
 
-## 5. netstat / ss — View active network connections
+## 5. `netstat` / `ss` — View Active Connections
 
-**Purpose:** Lists active TCP/UDP connections and listening ports.
+**✅ Purpose:**
+Displays active sockets, ports, and their statuses.
 
-### netstat common options:
+**🛠️ Basic Syntax:**
 
-* `-t` — TCP only.
-* `-u` — UDP only.
-* `-n` — Numeric output (no DNS).
-* `-l` — Listening sockets.
-* `-p` — Show owning processes.
+```bash
+netstat [options]
+ss [options]
+```
 
-### Example:
+**⚙️ Useful Options:**
+
+* `-t` – TCP
+* `-u` – UDP
+* `-n` – Don't resolve names
+* `-l` – Listening ports
+* `-p` – Show PID/process
+
+**🧪 Example:**
 
 ```bash
 netstat -tunp
-```
-
-### Output:
-
-<img width="787" height="103" alt="image" src="https://github.com/user-attachments/assets/704c5ee8-f7a7-417c-bca9-771ef12ed6f0" />
-
----
-
-### ss common options:
-
-* `-t` — TCP sockets.
-* `-u` — UDP sockets.
-* `-n` — Numeric output.
-* `-p` — Show processes.
-
-### Example:
-
-```bash
 ss -tunp
 ```
 
-### Output:
+**🖥️ Output (netstat):**
 
-<img width="1757" height="54" alt="image" src="https://github.com/user-attachments/assets/e8b42e7e-9548-4a67-9265-9ac2bcc88f30" />
+![netstat output](https://github.com/user-attachments/assets/704c5ee8-f7a7-417c-bca9-771ef12ed6f0)
+
+**🖥️ Output (ss):**
+
+![ss output](https://github.com/user-attachments/assets/e8b42e7e-9548-4a67-9265-9ac2bcc88f30)
 
 ---
 
-## 6. dig / host — DNS lookups
+## 6. `dig` / `host` — DNS Lookup
 
-**Purpose:** Query DNS servers for domain info.
+**✅ Purpose:**
+Queries DNS servers to resolve domain information.
 
-### dig common options:
+**🛠️ Basic Syntax:**
 
-* `+short` — Show only answers.
-* `ANY` — All records.
-* `MX` — Mail servers.
-* `NS` — Name servers.
+```bash
+dig [options] <domain>
+host <domain>
+```
 
-### Examples:
+**⚙️ Useful Options (dig):**
+
+* `+short` – Simplified output
+* `<record>` – e.g., `A`, `MX`, `NS`, `ANY`
+
+**🧪 Examples:**
 
 ```bash
 dig +short google.com
-```
-### Output:
-
-<img width="214" height="51" alt="image" src="https://github.com/user-attachments/assets/c8e9de40-3e99-4884-a70d-f0f972859068" />
-
----
-
-### host usage:
-
-```bash
 host google.com
 ```
 
-### Output:
+**🖥️ Output (dig):**
 
-<img width="432" height="77" alt="image" src="https://github.com/user-attachments/assets/6c2f1336-4a61-4d85-856b-d407db1aa90f" />
+![dig output](https://github.com/user-attachments/assets/c8e9de40-3e99-4884-a70d-f0f972859068)
 
----
+**🖥️ Output (host):**
 
-## 7. ip / ifconfig — View and configure IP addresses and interfaces
-
-**Purpose:** Show or modify network interfaces and IP settings.
-
-### ip commands:
-
-* `ip a` or `ip addr` — Show interfaces and IPs.
-* `ip link` — Show/manage network devices.
-* `ip route` — Show routing table.
-
-### Example:
-
-```bash
-ip a
-```
-
-### Output:
-
-<img width="813" height="220" alt="image" src="https://github.com/user-attachments/assets/9cce2889-7a0d-47ca-993e-965bb213d0da" />
+![host output](https://github.com/user-attachments/assets/6c2f1336-4a61-4d85-856b-d407db1aa90f)
 
 ---
 
-### ifconfig (older, deprecated tool):
+## 7. `ip` / `ifconfig` — View IP & Interfaces
+
+**✅ Purpose:**
+Displays network interfaces, addresses, and routes.
+
+**🛠️ Basic Syntax:**
 
 ```bash
+ip [object] [options]
 ifconfig
 ```
 
-### Output:
+**⚙️ Useful Commands (ip):**
 
-<img width="606" height="301" alt="image" src="https://github.com/user-attachments/assets/14798b31-4be8-470d-b169-be358d33b408" />
+* `ip a` – Show IPs/interfaces
+* `ip link` – Show interfaces
+* `ip route` – Routing table
+
+**🧪 Examples:**
+
+```bash
+ip a
+ifconfig
+```
+
+**🖥️ Output (ip):**
+
+![ip output](https://github.com/user-attachments/assets/9cce2889-7a0d-47ca-993e-965bb213d0da)
+
+**🖥️ Output (ifconfig):**
+
+![ifconfig output](https://github.com/user-attachments/assets/14798b31-4be8-470d-b169-be358d33b408)
 
 ---
 
-## 8. tcpdump — Packet capture and analysis
+## 8. `tcpdump` — Packet Capture & Analysis
 
-**Purpose:** Capture network packets for troubleshooting.
+**✅ Purpose:**
+Captures and analyzes packets on a specific network interface.
 
-### Common options:
+**🛠️ Basic Syntax:**
 
-* `-i <interface>` — Specify network interface.
-* `-nn` — Don’t resolve names.
-* `-c <count>` — Capture limited packets.
-* `-v`, `-vv`, `-vvv` — Verbosity levels.
-* Filters — e.g., `port 80`, `host 1.2.3.4`.
+```bash
+tcpdump [options] [filter]
+```
 
-### Example:
+**⚙️ Useful Options:**
+
+* `-i <interface>` – Interface to listen on
+* `-c <count>` – Stop after N packets
+* `-nn` – Don’t resolve names
+* Filters like `port 80`, `host 1.1.1.1`
+
+**🧪 Example:**
 
 ```bash
 sudo tcpdump -i eth0 -nn -c 5 port 80
 ```
-### Output:
 
-<img width="1593" height="198" alt="image" src="https://github.com/user-attachments/assets/37b7ccb4-a5bf-4006-a297-19981f019482" />
+**🖥️ Output:**
+
+![tcpdump output](https://github.com/user-attachments/assets/37b7ccb4-a5bf-4006-a297-19981f019482)
 
 ---
 
-## 9. curl — HTTP requests and inspection
+## 9. `curl` — HTTP Requests & Inspection
 
-**Purpose:** Transfer data or inspect HTTP headers and responses.
+**✅ Purpose:**
+Performs and inspects HTTP(S) requests to web servers.
 
-### Common options:
+**🛠️ Basic Syntax:**
 
-* `-I` — Fetch HTTP headers only.
-* `-X` — Specify HTTP method (GET, POST, etc.).
-* `-d` — Data to send (for POST).
-* `-H` — Add custom headers.
+```bash
+curl [options] <url>
+```
 
-### Examples:
+**⚙️ Useful Options:**
+
+* `-I` – Fetch headers only
+* `-X` – HTTP method
+* `-d` – POST data
+* `-H` – Custom headers
+
+**🧪 Example:**
 
 ```bash
 curl -I https://google.com
 ```
 
-### Output:
+**🖥️ Output:**
 
-<img width="1898" height="234" alt="image" src="https://github.com/user-attachments/assets/2b9f00e1-7f65-40ed-b592-ea5a9b63491a" />
+![curl output](https://github.com/user-attachments/assets/2b9f00e1-7f65-40ed-b592-ea5a9b63491a)
 
 ---
 
-## 10. lsof — List open network files and connections
+## 10. `lsof` — List Open Files & Network Connections
 
-**Purpose:** List open files including network sockets and associated processes.
+**✅ Purpose:**
+Lists open files, including network sockets and ports used by processes.
 
-### Common options:
+**🛠️ Basic Syntax:**
 
-* `-i` — Show internet/network connections.
-* `-i :<port>` — Show connections on specific port.
-* `-n` — No DNS lookups.
-* `-P` — Show port numbers numerically.
+```bash
+lsof [options]
+```
 
-### Examples:
+**⚙️ Useful Options:**
+
+* `-i` – Show internet sockets
+* `-n` – Don’t resolve hostnames
+* `-P` – Show port numbers
+* `-i :<port>` – Filter by port
+
+**🧪 Example:**
 
 ```bash
 lsof -i -n -P
 ```
 
-### Output:
+**🖥️ Output:**
 
-<img width="878" height="346" alt="image" src="https://github.com/user-attachments/assets/4b4faccc-57aa-4484-865d-5300f570ec0a" />
-
----
-
-# Summary Table
-
-| Tool        | Purpose                             | Example Command              |
-| ----------- | ----------------------------------- | ---------------------------- |
-| ping        | Connectivity & latency test         | `ping -c 4 google.com`       |
-| traceroute  | Trace network path                  | `traceroute google.com`      |
-| whois       | Domain registration info            | `whois google.com`           |
-| nmap        | Port scan & host discovery          | `sudo nmap -sS google.com`   |
-| netstat/ss  | View active connections             | `netstat -tunp` / `ss -tunp` |
-| dig/host    | DNS lookup                          | `dig +short google.com`      |
-| ip/ifconfig | View/configure interfaces           | `ip a` / `ifconfig`          |
-| tcpdump     | Packet capture & analysis           | `sudo tcpdump -i eth0 -c 5`  |
-| curl        | HTTP header and response inspection | `curl -I https://google.com` |
-| lsof        | List open network connections       | `lsof -i -n -P`              |
+![lsof output](https://github.com/user-attachments/assets/4b4faccc-57aa-4484-865d-5300f570ec0a)
 
 ---
 
-Created By: Liel Darren F. Fajutagana
+## 📊 Summary Table
 
+| Tool         | Purpose                      | Example                      |
+| ------------ | ---------------------------- | ---------------------------- |
+| `ping`       | Connectivity check & latency | `ping -c 4 google.com`       |
+| `traceroute` | Trace packet route           | `traceroute -n google.com`   |
+| `whois`      | Domain registration info     | `whois google.com`           |
+| `nmap`       | Port scan & discovery        | `sudo nmap -sS google.com`   |
+| `netstat`    | List active connections      | `netstat -tunp`              |
+| `ss`         | Modern socket stats          | `ss -tunp`                   |
+| `dig`        | DNS record lookup            | `dig +short google.com`      |
+| `host`       | Simple DNS lookup            | `host google.com`            |
+| `ip`         | View IP settings             | `ip a`                       |
+| `ifconfig`   | Legacy interface info        | `ifconfig`                   |
+| `tcpdump`    | Packet capture               | `tcpdump -i eth0 -c 5`       |
+| `curl`       | Web requests                 | `curl -I https://google.com` |
+| `lsof`       | Open files & ports           | `lsof -i -n -P`              |
+
+---
+
+Created by: Liel Darren F. Fajutagana
