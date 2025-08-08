@@ -1,5 +1,3 @@
-Certainly! Here's a **complete detailed cheat sheet** for all those networking tools, formatted as a **README.md** file for easy copy-pasting:
-
 ````markdown
 # Networking Tools Cheat Sheet
 
@@ -24,7 +22,8 @@ ping -c 4 google.com
 
 ### Output:
 
-Shows reply times and packet loss statistics.
+<img width="726" height="165" alt="image" src="https://github.com/user-attachments/assets/a1a9da02-def5-49ca-889c-a6ff637fa072" />
+
 
 ---
 
