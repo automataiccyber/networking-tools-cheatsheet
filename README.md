@@ -1,182 +1,272 @@
-# Networking Tools Cheatsheet
+Certainly! Here's a **complete detailed cheat sheet** for all those networking tools, formatted as a **README.md** file for easy copy-pasting:
 
-This cheatsheet provides common networking commands and their typical outputs, along with explanations. It is useful for troubleshooting, network diagnostics, and information gathering.
+````markdown
+# Networking Tools Cheat Sheet
+
+A detailed reference for common networking command-line tools used for diagnostics, troubleshooting, and information gathering.
 
 ---
 
-1. Ping
+## 1. ping — Test connectivity and measure latency
 
-`ping` sends ICMP echo requests to test connectivity and measure round-trip time (RTT) to a host.
+**Purpose:** Send ICMP echo requests to check if a host is reachable and measure round-trip time.
 
-Example command:
+### Common options:
+- `-c <count>` — Number of echo requests to send.
+- `-i <interval>` — Interval between packets (seconds).
+- `-s <size>` — Payload size in bytes.
+- `-t <ttl>` — Set Time To Live.
+
+### Example:
+```bash
 ping -c 4 google.com
+````
 
-Example output:
-PING google.com (142.251.220.174) 56(84) bytes of data.
-64 bytes from mnl07s02-in-f14.1e100.net (142.251.220.174): icmp_seq=1 ttl=118 time=7.19 ms
-64 bytes from mnl07s02-in-f14.1e100.net (142.251.220.174): icmp_seq=2 ttl=118 time=10.3 ms
-64 bytes from mnl07s02-in-f14.1e100.net (142.251.220.174): icmp_seq=3 ttl=118 time=10.4 ms
-64 bytes from mnl07s02-in-f14.1e100.net (142.251.220.174): icmp_seq=4 ttl=118 time=10.9 ms
+### Output:
 
---- google.com ping statistics ---
-4 packets transmitted, 4 received, 0% packet loss, time 3022ms
-rtt min/avg/max/mdev = 7.188/9.699/10.885/1.465 ms
+Shows reply times and packet loss statistics.
 
 ---
 
-2. Traceroute
+## 2. traceroute — Trace network path to a host
 
-`traceroute` shows the route packets take to reach a destination host, including each hop and latency.
+**Purpose:** Displays the route packets take to reach a destination host.
 
-Example command:
-traceroute google.com
+### Common options:
 
-Example output:
-traceroute to google.com (142.251.220.174), 30 hops max, 60 byte packets
- 1  192.168.1.1 (192.168.1.1)  2.727 ms  4.541 ms  4.457 ms
- 2  100.84.0.1 (100.84.0.1)  8.769 ms  8.680 ms  8.600 ms
- ...
- 9  mnl07s02-in-f14.1e100.net (142.251.220.174)  8.841 ms  8.716 ms  8.600 ms
+* `-m <max_ttl>` — Max hops to trace (default 30).
+* `-n` — Show numeric IPs only (no hostname resolution).
+* `-w <timeout>` — Timeout per probe in seconds.
+
+### Example:
+
+```bash
+traceroute -n google.com
+```
+
+### Output:
+
+Lists each hop’s IP and response times.
 
 ---
 
-3. WHOIS
+## 3. whois — Domain registration information
 
-`whois` queries the domain registration and ownership details for a domain name.
+**Purpose:** Retrieves domain ownership and registration details.
 
-Example command:
+### Usage:
+
+```bash
 whois google.com
+```
 
-Excerpt from output:
-Domain Name: GOOGLE.COM
-Registrar: MarkMonitor Inc.
-Creation Date: 1997-09-15
-Registry Expiry Date: 2028-09-14
-Registrant Organization: Google LLC
-Name Servers:
-    NS1.GOOGLE.COM
-    NS2.GOOGLE.COM
-    NS3.GOOGLE.COM
-    NS4.GOOGLE.COM
+### Key fields:
+
+* Registrar information
+* Creation & expiration dates
+* Registrant organization
+* Name servers
+* Domain status codes
 
 ---
 
-4. Nmap (TCP SYN Scan)
+## 4. nmap — Port scanning and host discovery
 
-`nmap` is a network scanner. The SYN scan (`-sS`) checks for open TCP ports stealthily.
+**Purpose:** Scan hosts for open ports and services.
 
-Example command:
-sudo nmap -sS google.com
+### Common options:
 
-Example output:
-PORT    STATE SERVICE
-80/tcp  open  http
-443/tcp open  https
+* `-sS` — TCP SYN scan (stealth).
+* `-sU` — UDP scan.
+* `-p <port(s)>` — Specify port or range.
+* `-O` — OS detection.
+* `-A` — Aggressive scan (includes version & script scanning).
 
----
+### Example:
 
-5. Netstat & ss
+```bash
+sudo nmap -sS -p 80,443 google.com
+```
 
-Shows active network connections.
+### Output:
 
-Example commands:
-netstat -tun
-ss -tun
-
-Example output:
-udp 0 0 192.168.1.18:68 192.168.1.1:67 ESTABLISHED
+Open ports with services and status.
 
 ---
 
-6. DNS Lookup
+## 5. netstat / ss — View active network connections
 
-`dig` and `host` resolve domain names to IP addresses.
+**Purpose:** Lists active TCP/UDP connections and listening ports.
 
-Example commands:
+### netstat common options:
+
+* `-t` — TCP only.
+* `-u` — UDP only.
+* `-n` — Numeric output (no DNS).
+* `-l` — Listening sockets.
+* `-p` — Show owning processes.
+
+### Example:
+
+```bash
+netstat -tunp
+```
+
+---
+
+### ss common options:
+
+* `-t` — TCP sockets.
+* `-u` — UDP sockets.
+* `-n` — Numeric output.
+* `-p` — Show processes.
+
+### Example:
+
+```bash
+ss -tunp
+```
+
+---
+
+## 6. dig / host — DNS lookups
+
+**Purpose:** Query DNS servers for domain info.
+
+### dig common options:
+
+* `+short` — Show only answers.
+* `ANY` — All records.
+* `MX` — Mail servers.
+* `NS` — Name servers.
+
+### Examples:
+
+```bash
 dig +short google.com
+dig google.com MX
+```
+
+---
+
+### host usage:
+
+```bash
 host google.com
-
-Example outputs:
-142.251.220.174
-
-google.com has address 142.251.220.174
-google.com has IPv6 address 2404:6800:4017:802::200e
-google.com mail is handled by 10 smtp.google.com.
+host -t MX google.com
+```
 
 ---
 
-7. IP Address Information
+## 7. ip / ifconfig — View and configure IP addresses and interfaces
 
-Check IP addresses and interfaces on your machine.
+**Purpose:** Show or modify network interfaces and IP settings.
 
-Example commands:
+### ip commands:
+
+* `ip a` or `ip addr` — Show interfaces and IPs.
+* `ip link` — Show/manage network devices.
+* `ip route` — Show routing table.
+
+### Example:
+
+```bash
 ip a
+ip route show
+```
+
+---
+
+### ifconfig (older, deprecated tool):
+
+```bash
 ifconfig
-
-Example output snippet:
-2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500
-    inet 192.168.1.18/24 brd 192.168.1.255 scope global dynamic
-    inet6 fe80::a00:27ff:fe0f:86ad/64 scope link
+ifconfig eth0 up
+ifconfig eth0 192.168.1.10 netmask 255.255.255.0
+```
 
 ---
 
-8. Tcpdump (Packet Capture)
+## 8. tcpdump — Packet capture and analysis
 
-Capture live packets on an interface (limited to 5 packets).
+**Purpose:** Capture network packets for troubleshooting.
 
-Example command:
-sudo tcpdump -nn -c 5
+### Common options:
 
-Sample output:
-08:11:35.734530 IP 192.168.1.18.44671 > 192.168.1.1.53: 41741+ A? contile.services.mozilla.com. (46)
-...
-5 packets captured
+* `-i <interface>` — Specify network interface.
+* `-nn` — Don’t resolve names.
+* `-c <count>` — Capture limited packets.
+* `-v`, `-vv`, `-vvv` — Verbosity levels.
+* Filters — e.g., `port 80`, `host 1.2.3.4`.
+
+### Example:
+
+```bash
+sudo tcpdump -i eth0 -nn -c 5 port 80
+```
 
 ---
 
-9. Curl (HTTP Header Request)
+## 9. curl — HTTP requests and inspection
 
-Fetch HTTP headers from a URL.
+**Purpose:** Transfer data or inspect HTTP headers and responses.
 
-Example command:
+### Common options:
+
+* `-I` — Fetch HTTP headers only.
+* `-X` — Specify HTTP method (GET, POST, etc.).
+* `-d` — Data to send (for POST).
+* `-H` — Add custom headers.
+
+### Examples:
+
+```bash
 curl -I https://google.com
-
-Sample output:
-HTTP/2 301 
-location: https://www.google.com/
-content-type: text/html; charset=UTF-8
-date: Fri, 08 Aug 2025 00:12:10 GMT
+curl -X POST -d "param=value" https://example.com/api
+```
 
 ---
 
-10. lsof (List Open Files and Network Connections)
+## 10. lsof — List open network files and connections
 
-List all open internet connections by processes.
+**Purpose:** List open files including network sockets and associated processes.
 
-Example command:
-lsof -i
+### Common options:
 
-Output example:
-firefox-e 11592 code01 83u IPv4 34965 0t0 TCP 192.168.1.18:33136->203.137.36.34.bc.googleusercontent.com:https (ESTABLISHED)
+* `-i` — Show internet/network connections.
+* `-i :<port>` — Show connections on specific port.
+* `-n` — No DNS lookups.
+* `-P` — Show port numbers numerically.
 
----
+### Examples:
 
-Summary:
-
-| Tool       | Purpose                                      |
-|------------|----------------------------------------------|
-| ping       | Test connectivity and measure latency       |
-| traceroute | Trace network path to a host                  |
-| whois      | Domain registration info                      |
-| nmap       | Port scanning and host discovery              |
-| netstat/ss | View active network connections                |
-| dig/host   | DNS lookups                                   |
-| ip/ifconfig| View IP addresses and interfaces              |
-| tcpdump    | Packet capture and analysis                    |
-| curl       | HTTP header and response inspection            |
-| lsof       | List open network files and connections       |
+```bash
+lsof -i -n -P
+lsof -i :80
+```
 
 ---
 
-Created by Liel Darren F. Fajutagana
-Date: 2025-08-08
+# Summary Table
+
+| Tool        | Purpose                             | Example Command              |
+| ----------- | ----------------------------------- | ---------------------------- |
+| ping        | Connectivity & latency test         | `ping -c 4 google.com`       |
+| traceroute  | Trace network path                  | `traceroute google.com`      |
+| whois       | Domain registration info            | `whois google.com`           |
+| nmap        | Port scan & host discovery          | `sudo nmap -sS google.com`   |
+| netstat/ss  | View active connections             | `netstat -tunp` / `ss -tunp` |
+| dig/host    | DNS lookup                          | `dig +short google.com`      |
+| ip/ifconfig | View/configure interfaces           | `ip a` / `ifconfig`          |
+| tcpdump     | Packet capture & analysis           | `sudo tcpdump -i eth0 -c 5`  |
+| curl        | HTTP header and response inspection | `curl -I https://google.com` |
+| lsof        | List open network connections       | `lsof -i -n -P`              |
+
+---
+
+Feel free to copy, save, or modify this cheat sheet as needed!
+
+```
+
+Let me know if you want it as a file saved on disk or anything else!
+```
