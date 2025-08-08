@@ -1,4 +1,3 @@
-````markdown
 # Networking Tools Cheat Sheet
 
 A detailed reference for common networking command-line tools used for diagnostics, troubleshooting, and information gathering.
@@ -22,8 +21,7 @@ ping -c 4 google.com
 
 ### Output:
 
-<img width="726" height="165" alt="image" src="https://github.com/user-attachments/assets/a1a9da02-def5-49ca-889c-a6ff637fa072" />
-
+<img width="742" height="172" alt="image" src="https://github.com/user-attachments/assets/1578216e-b42b-4e1a-a761-953f6282d527" />
 
 ---
 
@@ -45,7 +43,7 @@ traceroute -n google.com
 
 ### Output:
 
-Lists each hop’s IP and response times.
+<img width="677" height="215" alt="image" src="https://github.com/user-attachments/assets/c7a4831d-32ee-4181-a157-a63198f69572" />
 
 ---
 
@@ -58,6 +56,10 @@ Lists each hop’s IP and response times.
 ```bash
 whois google.com
 ```
+
+### Output:
+
+<img width="733" height="388" alt="image" src="https://github.com/user-attachments/assets/a3cf1d19-52b2-4d2b-a41d-af23c10911f5" />
 
 ### Key fields:
 
@@ -89,7 +91,7 @@ sudo nmap -sS -p 80,443 google.com
 
 ### Output:
 
-Open ports with services and status.
+<img width="581" height="213" alt="image" src="https://github.com/user-attachments/assets/4bccc61c-6e10-4168-8f94-96eaa69dc9a6" />
 
 ---
 
@@ -111,6 +113,10 @@ Open ports with services and status.
 netstat -tunp
 ```
 
+### Output:
+
+<img width="787" height="103" alt="image" src="https://github.com/user-attachments/assets/704c5ee8-f7a7-417c-bca9-771ef12ed6f0" />
+
 ---
 
 ### ss common options:
@@ -125,6 +131,10 @@ netstat -tunp
 ```bash
 ss -tunp
 ```
+
+### Output:
+
+<img width="1757" height="54" alt="image" src="https://github.com/user-attachments/assets/e8b42e7e-9548-4a67-9265-9ac2bcc88f30" />
 
 ---
 
@@ -143,8 +153,10 @@ ss -tunp
 
 ```bash
 dig +short google.com
-dig google.com MX
 ```
+### Output:
+
+<img width="214" height="51" alt="image" src="https://github.com/user-attachments/assets/c8e9de40-3e99-4884-a70d-f0f972859068" />
 
 ---
 
@@ -152,8 +164,11 @@ dig google.com MX
 
 ```bash
 host google.com
-host -t MX google.com
 ```
+
+### Output:
+
+<img width="432" height="77" alt="image" src="https://github.com/user-attachments/assets/6c2f1336-4a61-4d85-856b-d407db1aa90f" />
 
 ---
 
@@ -171,8 +186,11 @@ host -t MX google.com
 
 ```bash
 ip a
-ip route show
 ```
+
+### Output:
+
+<img width="813" height="220" alt="image" src="https://github.com/user-attachments/assets/9cce2889-7a0d-47ca-993e-965bb213d0da" />
 
 ---
 
@@ -180,9 +198,11 @@ ip route show
 
 ```bash
 ifconfig
-ifconfig eth0 up
-ifconfig eth0 192.168.1.10 netmask 255.255.255.0
 ```
+
+### Output:
+
+<img width="606" height="301" alt="image" src="https://github.com/user-attachments/assets/14798b31-4be8-470d-b169-be358d33b408" />
 
 ---
 
@@ -203,6 +223,9 @@ ifconfig eth0 192.168.1.10 netmask 255.255.255.0
 ```bash
 sudo tcpdump -i eth0 -nn -c 5 port 80
 ```
+### Output:
+
+<img width="1593" height="198" alt="image" src="https://github.com/user-attachments/assets/37b7ccb4-a5bf-4006-a297-19981f019482" />
 
 ---
 
@@ -221,8 +244,11 @@ sudo tcpdump -i eth0 -nn -c 5 port 80
 
 ```bash
 curl -I https://google.com
-curl -X POST -d "param=value" https://example.com/api
 ```
+
+### Output:
+
+<img width="1898" height="234" alt="image" src="https://github.com/user-attachments/assets/2b9f00e1-7f65-40ed-b592-ea5a9b63491a" />
 
 ---
 
@@ -241,8 +267,11 @@ curl -X POST -d "param=value" https://example.com/api
 
 ```bash
 lsof -i -n -P
-lsof -i :80
 ```
+
+### Output:
+
+<img width="878" height="346" alt="image" src="https://github.com/user-attachments/assets/4b4faccc-57aa-4484-865d-5300f570ec0a" />
 
 ---
 
@@ -263,9 +292,5 @@ lsof -i :80
 
 ---
 
-Feel free to copy, save, or modify this cheat sheet as needed!
+Created By: Liel Darren F. Fajutagana
 
-```
-
-Let me know if you want it as a file saved on disk or anything else!
-```
