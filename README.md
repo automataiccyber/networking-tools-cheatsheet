@@ -1,6 +1,6 @@
 # Networking Tools Cheat Sheet
 
-A consistent and detailed reference for essential networking tools used for diagnostics, troubleshooting, and reconnaissance.
+A reference guide to essential networking tools with real command output and explanations for cybersecurity learners.
 
 ---
 
